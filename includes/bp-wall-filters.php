@@ -162,7 +162,7 @@ function bp_wall_qs_filter( $query_string ) {
 	$action = $bp->current_action;
 
 	// if we're on a different page than wall pass query_string as is
-	if ( $action != "just-me" &&  $action != "news-feed" ) {
+	if ( $action != "just-me" &&  $action != "news-feed" && $action != "timeline") {
 		return $query_string;
 	}
 

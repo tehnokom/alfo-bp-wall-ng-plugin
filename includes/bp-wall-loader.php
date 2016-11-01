@@ -281,6 +281,7 @@ class BP_Wall {
 		$where_sql = 'WHERE ' . join( ' OR ', $where_conditions );
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
+		error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 		
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
 
@@ -324,12 +325,13 @@ class BP_Wall {
 		$where_conditions['mentions_sql'] = "( $table_activity.content LIKE '%$filter%' AND $table_activity.type!='activity_comment' )";
 		 */
 		
-		$where_conditions['activity_sql'] = "( $table_activity.user_id = $user_id AND $table_activity.type!='activity_comment' ) OR ($table_activity.type='activity_update' AND $table_activity.item_id = $user_id ) ";
+		$where_conditions['activity_sql'] = "( $table_activity.user_id = $user_id AND $table_activity.type!='activity_comment' ) OR ( $table_activity.type='activity_update' AND $table_activity.item_id = $user_id ) ";
 
 		$where_sql = 'WHERE ' . join( ' OR ', $where_conditions );
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
 		
+		error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
 
 		if ( empty($activities ) ) return null;
@@ -396,6 +398,7 @@ class BP_Wall {
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
 		
+		error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
 		
 		if ( empty($activities ) ) return null;
