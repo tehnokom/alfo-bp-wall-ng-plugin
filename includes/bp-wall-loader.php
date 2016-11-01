@@ -281,7 +281,6 @@ class BP_Wall {
 		$where_sql = 'WHERE ' . join( ' OR ', $where_conditions );
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
-		error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 		
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
 
@@ -331,7 +330,6 @@ class BP_Wall {
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
 		
-		error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
 
 		if ( empty($activities ) ) return null;
@@ -398,7 +396,6 @@ class BP_Wall {
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
 		
-		error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
 		
 		if ( empty($activities ) ) return null;
