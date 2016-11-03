@@ -55,7 +55,11 @@ Version 0.9.6 ( Nov 01, 2016 @lan )
 --------------------------------------------------------------
 - Added Wall posting
 
-Version 0.9.7 ( Nov 01, 2016 @lan )
+Version 0.9.7 ( Nov 02, 2016 @lan )
 --------------------------------------------------------------
 - Change Wall behavior: posting to other user's wall not showing on posters'
   wall
+
+Version 0.9.8 ( Nov 03, 2016 @lan )
+--------------------------------------------------------------
+- Group walls filter

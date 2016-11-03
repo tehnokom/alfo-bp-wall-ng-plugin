@@ -225,3 +225,28 @@ function bp_wall_activity_item_id_before_save($id) {
 	}
 	return $id;
 }
+
+
+/**
+ * Filter groups activity
+ */
+function bp_groups_filter_activity_scope_wall( $retval = array(), $filter = array() ) {
+	if ($filter['object'] == 'groups') {
+		$retval = array(
+			'relation' => 'OR',
+			array(
+				'column' => 'type',
+				'value'  => 'activity_update'
+			),
+			array(
+				'column'  => 'type',
+				'value'   => 'bbp_topic_create'
+			),
+		);
+		return $retval;
+	} else {
+		return false;
+	}
+}
+add_filter( 'bp_activity_set_home_scope_args', 'bp_groups_filter_activity_scope_wall', 11, 2 );
+
