@@ -4,7 +4,7 @@ Plugin Name: BuddyPress Wall NG
 Plugin URI: 
 Description: Turn your Buddypress Activity Component to a Facebook-style Wall.
 Profiles with Facebook-style walls. 
-Version: 0.9.6
+Version: 0.9.8.1
 Requires at least:  WP 4.6, BuddyPress 2.7
 Tested up to: Wordpress 4.6.1 BuddyPress 2.7.0
 License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
