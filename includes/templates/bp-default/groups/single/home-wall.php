@@ -57,10 +57,12 @@
 
 					// Not looking at home
 					else :
-
 						// Group Admin
-						if     ( bp_is_group_admin_page() ) : locate_template( array( 'groups/single/admin.php'        ), true );
-
+						if     ( bp_is_group_admin_security_page() ) : bp_wall_load_sub_template( array( 'groups/single/admin/group-security.php' ), true );
+						
+						// Group Admin
+						elseif     ( bp_is_group_admin_page() ) : locate_template( array( 'groups/single/admin.php'        ), true ); 
+						
 						// Group Activity
 						elseif ( bp_is_group_activity()   ) : locate_template( array( 'groups/single/activity.php'     ), true );
 

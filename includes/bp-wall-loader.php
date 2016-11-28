@@ -175,6 +175,35 @@ class BP_Wall {
 			'screen_function' => 'bp_wall_activity_screen_wall_activity', 
 			"position" => 5 
 		) );	
+		
+		// ADD WALL SECURITY @lan
+		
+		$settings_link = trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() );
+
+		bp_core_new_subnav_item( array(
+			'name' => __('Security','bp-wall'),
+			'slug' => 'security',
+			'parent_url' => $settings_link, 
+			'parent_slug' => bp_get_settings_slug(),
+			'screen_function' => 'bp_wall_screen_user_security', 
+			"position" => 100 
+		) );	
+
+		if ( bp_is_groups_component() && bp_is_single_item() && bp_is_item_admin() )  {
+			// ADD GROUP SECURITY NAV @lan
+
+			bp_core_new_subnav_item(array(
+				'name'     => __( 'Group Security', 'bp-wall' ),
+				'slug'     => 'group-security',
+				'parent_url' => trailingslashit( bp_get_group_permalink(groups_get_current_group()) . 'admin' ),
+				'parent_slug' => groups_get_current_group()->slug.'_manage',
+				'screen_function' => 'bp_wall_groups_screen_group_admin', 
+				'position' => 100,
+				'user_has_access'   => bp_is_item_admin(),
+				'show_in_admin_bar' => true,
+			), 'groups');
+		}
+
 
 		// RENAME PERSONAL TAB
 		bp_core_new_subnav_item( array( 
@@ -430,4 +459,5 @@ function bp_wall_load_core() {
 
 }
 add_action( 'bp_init', 'bp_wall_load_core', 5 );
-//add_action( 'bp_loaded', 'bp_wall_load_core', 5 );
+
+

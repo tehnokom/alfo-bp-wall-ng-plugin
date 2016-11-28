@@ -19,6 +19,13 @@ add_filter('bp_ajax_querystring', 'bp_wall_qs_filter', 999);
 
 add_filter('bp_get_activity_action_pre_meta', 'bp_wall_get_activity_action_pre_meta',10,3);
 
+#add_filter('bp_group_admin_form_action','bp_wall_get_group_admin_security_form_action',10);
+#return apply_filters( 'bp_group_admin_form_action', bp_get_group_permalink( $group ) . 'admin/' . $page, $group );
+
+#function bp_wall_get_group_admin_security_form_action($group) {
+#	echo $group;
+#}
+
 
 function bp_wall_get_activity_action_pre_meta( $action, $activity, $args ){
 	$bp_wall_action = bp_activity_get_meta( $activity->id, 'bp_wall_action' );
@@ -50,7 +57,7 @@ function bp_wall_read_filter( $action ) {
  */
 function bp_wall_input_filter( &$activity ) {
 	global $bp, $bp_wall;
-	
+
 	$loggedin_user = $bp->loggedin_user;
 	$displayed_user  = $bp->displayed_user;
 	$new_action = false;

@@ -38,7 +38,11 @@
 <!-- bp-wall-start -->
 <?php if ( is_user_logged_in() ) : ?>   
 
-	<?php bp_wall_load_sub_template( array('activity/post-wall-form.php'), true ) ?> 
+	<?php if ( bp_wall_groups_user_can_post() ) : ?>   
+
+		<?php bp_wall_load_sub_template( array('activity/post-wall-form.php'), true ) ?> 
+
+	<?php endif; ?>
 
 <?php endif; ?>
 <!-- bp-wall-end -->

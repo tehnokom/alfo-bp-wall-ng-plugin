@@ -4,7 +4,7 @@ Plugin Name: BuddyPress Wall NG
 Plugin URI: 
 Description: Turn your Buddypress Activity Component to a Facebook-style Wall.
 Profiles with Facebook-style walls. 
-Version: 0.9.8.1
+Version: 0.9.8.2
 Requires at least:  WP 4.6, BuddyPress 2.7
 Tested up to: Wordpress 4.6.1 BuddyPress 2.7.0
 License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
@@ -25,7 +25,7 @@ define( 'BP_WALL_IS_INSTALLED', 1 );
 
 // Define a constant that will hold the current version number of the component
 // This can be useful if you need to run update scripts or do compatibility checks in the future
-define( 'BP_WALL_VERSION', '0.9.6' );
+define( 'BP_WALL_VERSION', '0.9.8.2' );
 
 // Define a constant that we can use to construct file paths throughout the component
 define( 'BP_WALL_PLUGIN_DIR', dirname( __FILE__ ) );
@@ -185,6 +185,10 @@ function bp_wall_template_part_filter( $templates, $slug, $name ) {
 		//return bp_buffer_template_part( 'activity/index-wall' );
 		$templates[0] = 'activity/index-wall.php';
 	}
+	elseif ( 'activity/wall-security' == $slug  ) {
+		$templates[0] = 'activity/wall-security.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}
 	elseif ( 'members/single/home' == $slug  ) {
 		$templates[0] = 'members/single/home-wall.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
@@ -193,10 +197,15 @@ function bp_wall_template_part_filter( $templates, $slug, $name ) {
 		$templates[0] = 'groups/single/home-wall.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
 	}
+	elseif ( groups_get_current_group()->slug.'_manage'.'group-security' == $slug  ) {
+		$templates[0] = 'groups/single/admin/group-security.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}
 	elseif ( 'activity/timeline' == $slug  ) {
 		$templates[0] = 'activity/index-timeline.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
 	}
+
 
 	return $templates;
 	//return bp_get_template_part( 'members/single/plugins' );
