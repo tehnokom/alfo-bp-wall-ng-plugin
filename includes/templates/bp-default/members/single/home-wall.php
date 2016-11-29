@@ -57,9 +57,12 @@ get_header( 'buddypress' ); ?>
 				elseif ( bp_is_user_forums() ) :
 					locate_template( array( 'members/single/forums.php'    ), true );
 
+				elseif ( bp_is_user_settings_security() ) :
+					bp_wall_load_sub_template( array( 'members/single/settings/security.php'  ), true );
+				
 				elseif ( bp_is_user_settings() ) :
 					locate_template( array( 'members/single/settings.php'  ), true );
-
+				
 				// If nothing sticks, load a generic template
 				else :
 					locate_template( array( 'members/single/plugins.php'   ), true );

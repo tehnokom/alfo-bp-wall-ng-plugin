@@ -69,8 +69,9 @@
 <!-- bp-wall-start -->
 <?php if ( ( !bp_current_action() || bp_is_current_action( 'just-me' ) ) || 
           is_user_logged_in() && bp_is_my_profile() && ( !bp_current_action() || bp_is_current_action( 'just-me' ) ) ) : ?>
-          
+<?php if ( bp_wall_user_can_post() )  : ?>
 	<?php bp_wall_load_sub_template( array('activity/post-wall-form.php'), true ) ?> 
+<?php endif; ?>
 
 <?php endif; ?>
 <!-- bp-wall-end -->

@@ -1,9 +1,9 @@
-=== BuddyPress Wall ===
-Contributors: megainfo
+=== BuddyPress Wall NG ===
+Contributors: megainfo, alexander.n.lunev@mail.ru
 Tags: buddypress, activity, wall, facebook, facebook style, facebook comment system, wall mode, like, unlike
 Requires at least: WordPress 3.4, BuddyPress 1.5
-Tested up to: WordPress 3.4.2 / BuddyPress 2.2.1
-Stable tag: 0.9.4
+Tested up to: WordPress 4.6 / BuddyPress 2.7
+Stable tag: 0.9.8.3
 
 
 == Description ==
@@ -15,6 +15,9 @@ When you install BP-Wall, the members can post status, updates and reply on each
 BP-Wall turn the Favorite/Unfavorite module of Buddypress to a facebook “I Like/Unlike” system.
 
 BP-Wall change add a new comment system similar to Facebook.
+
+BP-Wall-NG add a wall and group post security settings, make Wall page default
+and and filters activities for Wall and Group Walls. 
 
 
 == Installation ==
@@ -77,9 +80,37 @@ so you must replace the template content and keep the bp-wall script.
 Please post on the Wordpress support forum(http://wordpress.org/support/plugin/buddypress-wall).
 
 For bug reports or to add patches or translation files, visit the [Buddypress Wall Github page](https://github.com/dzmounir/buddypress-wall).
+
+For bug reports or to add patches or translation files to BP-Wall-NG, visit the [Buddypress Wall NG Github page](https://github.com/tehnokom/alfo-bp-wall-ng-plugin).
 	
 
-== Changelog ==
+== BuddyPress-Wall-NG Changelog == 
+= 0.9.8.3 =
+* User wall security settings
+
+= 0.9.8.2 =
+* Groups post security settings
+
+= 0.9.8.1 =
+* User walls fix
+
+= 0.9.8 =
+* Group walls filter
+
+= 0.9.7 =
+* Change Wall behavior: posting to other user's wall not showing on posters'
+  wall
+
+= 0.9.6 =
+* Added Wall posting
+
+= 0.9.5 =
+* Updated for BP 2.7 
+* New default "Wall" instead of "Timeline"
+* "Wall" excludes groups and friends activity.
+
+== BuddyPress-Wall Changelog == 
+
 = 0.9.4 =
 * Compatibility with Buddypress 2.2.x
 * Fix javascript error : jQuery.easing[this.easing] is not a function.* Fix Notice: bp_setup_current_user was called incorrectly.

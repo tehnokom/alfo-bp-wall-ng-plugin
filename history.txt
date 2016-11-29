@@ -71,3 +71,7 @@ Version 0.9.8.1 ( Nov 08, 2016 @lan )
 Version 0.9.8.2 ( Nov 28, 2016 @lan )
 --------------------------------------------------------------
 - Groups post security settings
+
+Version 0.9.8.3 ( Nov 29, 2016 @lan )
+--------------------------------------------------------------
+- User wall security settings

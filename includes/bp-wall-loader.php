@@ -277,6 +277,28 @@ class BP_Wall {
 	}
 	
 	/**
+	 * Check if a member with id $user_id  is a friend of my friend 
+	 * 
+	 */
+	function is_fof( $user_id ) {
+		global $bp;
+		
+		// check if Friend Connections component is enabled
+		if ( !bp_is_active( 'friends' ) ) 
+			return true;
+
+		$bp_loggedin_user_id = bp_loggedin_user_id();
+		if ( friends_check_user_has_friends( $user_id )	) {
+			foreach (friends_get_friend_user_ids( $user_id) as $id ) {
+				if (friends_check_friendship( $bp_loggedin_user_id, $id )) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Get the timeline activites (my-activity + mentions)
 	 */
 	function get_wall_activities( $page = 0, $per_page = 20 ){

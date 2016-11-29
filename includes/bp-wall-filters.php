@@ -19,12 +19,6 @@ add_filter('bp_ajax_querystring', 'bp_wall_qs_filter', 999);
 
 add_filter('bp_get_activity_action_pre_meta', 'bp_wall_get_activity_action_pre_meta',10,3);
 
-#add_filter('bp_group_admin_form_action','bp_wall_get_group_admin_security_form_action',10);
-#return apply_filters( 'bp_group_admin_form_action', bp_get_group_permalink( $group ) . 'admin/' . $page, $group );
-
-#function bp_wall_get_group_admin_security_form_action($group) {
-#	echo $group;
-#}
 
 
 function bp_wall_get_activity_action_pre_meta( $action, $activity, $args ){
@@ -217,12 +211,6 @@ function bp_wall_get_the_notification_description( $description ){
 	
 	return $description;
 }
-
-/*add_filter('bp_get_activity_post_form_action','bp_wall_get_activity_post_form_action');
-function bp_wall_get_activity_post_form_action($form_action) {
-	error_log($form_action);
-	return $form_action . "wall";
-}*/
 
 add_filter('bp_activity_item_id_before_save','bp_wall_activity_item_id_before_save');
 function bp_wall_activity_item_id_before_save($id) {

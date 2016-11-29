@@ -17,10 +17,6 @@ function bp_wall_activity_screen_wall_activity() {
     do_action( 'bp_wall_activity_screen_wall_activity' );
     bp_core_load_template( apply_filters( 'bp_wall_activity_template_wall_activity', 'activity/index-wall' ) );
 }
-function bp_wall_screen_user_security() {
-	do_action( 'bp_wall_screen_user_security' );
-	bp_core_load_template( apply_filters( 'bp_wall_template_user_security', 'members/single/security' ) );
-}
 
 /**
  * filter the activity home, member home and group home and replace them
@@ -30,32 +26,13 @@ function bp_wall_screen_user_security() {
 function bp_wall_load_template_filter( $found_template, $templates ) {
 	global $bp, $bp_deactivated;
 	if ( !bp_wall_is_bp_default() || 
-           #!bp_is_current_component( 'activity' ) &&
-           !( bp_is_current_component( 'activity' ) || (bp_is_current_component( 'groups' ))) &&
+           !( bp_is_current_component( 'activity' ) || (bp_is_current_component( 'groups' )) || (bp_is_current_component( 'settings' ))) &&
            ( !bp_is_group_home() || !bp_is_active( 'activity' ) ) ) {
         return $found_template; 
     }
-	#echo "bp_wall_load_template_filter :".print_r($found_template,1).":". print_r($templates,1);
 
 	$templates_dir = "/templates/bp-default/";
     
-	//if( bp_is_user_profile() && )
-	//Only filter the template location when we're on the follow component pages.
-
-	//if (bp_wall_is_bp_default()) {
-    /*
-	if ( $templates[0] == "members/single/home.php") {
-		$found_template = dirname( __FILE__ ) . $templates_dir . 'members/single/home-wall.php';
-		return $found_template;
-	}elseif ( $templates[0] == "activity/index.php") {
-		$found_template = dirname( __FILE__ ) . $templates_dir . 'activity/index-wall.php';
-		return $found_template;
-	} elseif ( $templates[0] == "groups/single/home.php" )	{
-		$found_template = dirname( __FILE__ ) . $templates_dir . 'groups/single/home-wall.php';
-		return $found_template;
-	}
-     */
-	
 	if ( $templates[0] == "members/single/home.php" ) {
         $template = 'members/single/home-wall.php';
         if ( file_exists( STYLESHEETPATH . '/' . $template ) )
@@ -90,25 +67,8 @@ function bp_wall_load_template_filter( $found_template, $templates ) {
             $found_template = dirname( __FILE__ ) . $templates_dir . $template;
 
         return $found_template;
-
-    }elseif ( $templates[0] == "members/single/security.php" ) {
-        $template = 'members/single/security.php';
-        if ( file_exists( STYLESHEETPATH . '/' . $template ) )
-            $found_template = STYLESHEETPATH . '/' . $template;
-        else
-            $found_template = dirname( __FILE__ ) . $templates_dir . $template;
-
-        return $found_template;
-    }elseif ( $templates[0] == "groups/single/admin/group-security.php" ) {
-        $template = 'groups/single/admin/group-security.php';
-        if ( file_exists( STYLESHEETPATH . '/' . $template ) )
-            $found_template = STYLESHEETPATH . '/' . $template;
-        else
-            $found_template = dirname( __FILE__ ) . $templates_dir . $template;
-
-        return $found_template;
     }
-
+	
 	foreach ( (array) $templates as $template ) {
 		
 		if ( file_exists( STYLESHEETPATH . '/' . $template ) )
@@ -231,7 +191,7 @@ if ( class_exists( 'BP_Theme_Compat' ) ) {
 /**
  * Handle the display of a group's Admin pages.
  *
- * @since 1.0.0
+ * @since 0.9.8.2
  */
 function bp_wall_groups_screen_group_admin() {
 	if ( !bp_is_groups_component() || !bp_is_current_action( 'admin' ) )
@@ -246,7 +206,7 @@ function bp_wall_groups_screen_group_admin() {
 /**
  * Handle the display of a group's admin/group-settings page.
  *
- * @since 1.0.0
+ * @since 0.9.8.2
  */
 function bp_wall_groups_screen_group_admin_post_security() {
 	if ( 'group-security' != bp_get_group_current_admin_tab() )
@@ -258,7 +218,6 @@ function bp_wall_groups_screen_group_admin_post_security() {
 	// If the edit form has been submitted, save the edited details.
 	if ( isset( $_POST['save'] ) ) {
 		// Checked against a whitelist for security.
-		/** This filter is documented in bp-groups/bp-groups-admin.php */
 		$allowed_post_security = apply_filters( 'groups_allowed_post_security', array( 'members', 'mods', 'admins' ) );
 		$prefix = "group-post-wall-security-";
 		foreach ($allowed_post_security as $postsec) {
@@ -270,9 +229,6 @@ function bp_wall_groups_screen_group_admin_post_security() {
 		// Check the nonce.
 		if ( !check_admin_referer( 'groups_edit_group_security') )
 			return false;
-		#echo "<pre>",print_r(array($_POST,$allowed_post_security,$post_security),1);
-		#exit;
-
 
 		if ( !bp_wall_groups_edit_group_security( $_POST['group-id'], $post_security ) ) {
 			bp_core_add_message( __( 'There was an error updating group security settings. Please try again.', 'buddypress' ), 'error' );
@@ -283,7 +239,7 @@ function bp_wall_groups_screen_group_admin_post_security() {
 		/**
 		 * Fires before the redirect if a group settings has been edited and saved.
 		 *
-		 * @since 1.0.0
+		 * @since 0.9.8.2
 		 *
 		 * @param int $id ID of the group that was edited.
 		 */
@@ -295,7 +251,7 @@ function bp_wall_groups_screen_group_admin_post_security() {
 	/**
 	 * Fires before the loading of the group admin/group-settings page template.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.8.2
 	 *
 	 * @param int $id ID of the group that is being displayed.
 	 */
@@ -304,7 +260,7 @@ function bp_wall_groups_screen_group_admin_post_security() {
 	/**
 	 * Filters the template to load for a group's admin/group-settings page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.8.2
 	 *
 	 * @param string $value Path to a group's admin/group-settings template.
 	 */
@@ -313,21 +269,68 @@ function bp_wall_groups_screen_group_admin_post_security() {
 add_action( 'bp_screens', 'bp_wall_groups_screen_group_admin_post_security' );
 
 
+/**
+ * Handle the display of a member's wall security page.
+ *
+ * @since 0.9.8.3
+ */
 
-function bp_wall_settings_screen_security() {
+function bp_wall_screen_user_security() {
+	if ( ! bp_is_item_admin() )
+		return false;
+	$bp = buddypress();
+	// If the edit form has been submitted, save the edited details.
+	
+	if ( isset( $_POST['submit'] ) ) {
+		// Checked against a whitelist for security.
+		$allowed_wall_security = apply_filters( 'members_allowed_post_security', array( 'everyone', 'friends', 'fof' ) );
+		
+		$prefix = "member-post-wall-security-";
+		foreach ($allowed_wall_security as $postsec) {
+			$id = $prefix.$postsec;
+			if (isset( $_POST[$id] ) && in_array( $_POST[$id], (array) $allowed_wall_security )) {
+				$wall_security[] =  $_POST[$id];
+			}
+		}
+		// Check the nonce.
+		if ( !check_admin_referer( 'bp_wall_members_settings_security') )
+			return false;
 
-	if ( bp_action_variables() ) {
-		bp_do_404();
-		return;
+
+		if ( !bp_wall_member_edit_security( bp_loggedin_user_id(), $wall_security ) ) {
+			bp_core_add_message( __( 'There was an error updating wall security settings. Please try again.', 'buddypress' ), 'error' );
+		} else {
+			bp_core_add_message( __( 'Wall security settings were successfully updated.', 'buddypress' ) );
+		}
+
+		/**
+		 * Fires before the redirect if a wall security has been edited and saved.
+		 *
+		 * @since 0.9.8.3
+		 *
+		 * @param int $id ID of the group that was edited.
+		 */
+		do_action( 'bp_wall_members_security_settings_edited', bp_loggedin_user_id());
+
+		bp_core_redirect( bp_member_permalink() . 'security/' );
 	}
 
 	/**
-	 * Filters the template file path to use for the notification settings screen.
+	 * Fires before the loading of the user wall security page template.
 	 *
-	 * @since 1.6.0
+	 * @since 0.9.8.3
 	 *
-	 * @param string $value Directory path to look in for the template file.
+	 * @param int $id ID of the user that is being displayed.
 	 */
-	#bp_core_load_template( apply_filters( 'bp_wall_settings_screen_security_settings', 'members/single/settings/security' ) );
-	echo "OK";
+	do_action( 'bp_wall_screen_wall_security', bp_loggedin_user_id() );
+
+	/**
+	 * Filters the template to load for user wall page template
+	 *
+	 * @since 0.9.8.3
+	 *
+	 * @param string $value Path to a user wall  page template.
+	 */
+	bp_core_load_template( apply_filters( 'bp_wall_template_user_security', 'members/single/home' ) );
 }
+add_action( 'bp_screens', 'bp_wall_screen_user_security' );
