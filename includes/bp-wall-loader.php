@@ -327,7 +327,7 @@ class BP_Wall {
 		$where_conditions['mentions_sql'] = "( $table_activity.content LIKE '%$filter%' AND $table_activity.type!='activity_comment' )";
 		 */
 		
-		$where_conditions['own_posting'] = "( $table_activity.user_id = $user_id AND $table_activity.type = 'activity_update' AND $table_activity.item_id = 0 )";
+		$where_conditions['own_posting'] = "( $table_activity.component!='groups' AND $table_activity.user_id = $user_id AND $table_activity.type = 'activity_update' AND $table_activity.item_id = 0 )";
 		$where_conditions['wall_posting'] = "( $table_activity.component!='groups' AND $table_activity.type='activity_update' AND $table_activity.item_id = $user_id ) ";
 
 		$where_sql = 'WHERE ' . join( ' OR ', $where_conditions );

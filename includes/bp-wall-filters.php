@@ -51,7 +51,6 @@ function bp_wall_read_filter( $action ) {
  */
 function bp_wall_input_filter( &$activity ) {
 	global $bp, $bp_wall;
-
 	$loggedin_user = $bp->loggedin_user;
 	$displayed_user  = $bp->displayed_user;
 	$new_action = false;
@@ -177,13 +176,20 @@ function bp_wall_qs_filter( $query_string ) {
 	} 
 
 	// load the activities for this page
-	if ( $action == "just-me" )
+	if ( $action == "just-me" ) {
 		$activities = $bp_wall->get_wall_activities($page); 
+		if (empty($activities)) {
+			$new_query_string = "secondary_id=99999999";
+			return $new_query_string;
+		}
+	}
+
 	elseif ( $action == "news-feed" )
 		$activities = $bp_wall->get_newsfeed_activities($page); 
 	elseif ( $action == "timeline" )
 		$activities = $bp_wall->get_timeline_activities($page); 
 
+	#echo "AC: ".print_r(array($activities,$query_string),1);
 	$new_query_string = "include=$activities";
 	return $new_query_string;
 	

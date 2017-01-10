@@ -15,7 +15,7 @@
 
 <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ) : ?>
 
-	<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
+    <?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
 	<noscript>
 		<div class="pagination">
 			<div class="pag-count"><?php bp_activity_pagination_count() ?></div>
