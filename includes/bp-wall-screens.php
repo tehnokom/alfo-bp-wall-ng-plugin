@@ -9,12 +9,12 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * 
  */
 function bp_wall_activity_screen_newsfeed_activity() {
-    do_action( 'bp_wall_activity_screen_newsfeed_activity' );
+	do_action( 'bp_wall_activity_screen_newsfeed_activity' );
     bp_core_load_template( apply_filters( 'bp_wall_activity_template_newsfeed_activity', 'members/single/home' ) );
 }
 
 function bp_wall_activity_screen_wall_activity() {
-    do_action( 'bp_wall_activity_screen_wall_activity' );
+	do_action( 'bp_wall_activity_screen_wall_activity' );
     bp_core_load_template( apply_filters( 'bp_wall_activity_template_wall_activity', 'activity/index-wall' ) );
 }
 
@@ -30,7 +30,6 @@ function bp_wall_load_template_filter( $found_template, $templates ) {
            ( !bp_is_group_home() || !bp_is_active( 'activity' ) ) ) {
         return $found_template; 
     }
-
 	$templates_dir = "/templates/bp-default/";
     
 	if ( $templates[0] == "members/single/home.php" ) {
@@ -276,8 +275,10 @@ add_action( 'bp_screens', 'bp_wall_groups_screen_group_admin_post_security' );
  */
 
 function bp_wall_screen_user_security() {
-	if ( ! bp_is_item_admin() )
+	if ( ! ( bp_is_item_admin() && bp_is_user_settings() ) )
 		return false;
+	
+	
 	$bp = buddypress();
 	// If the edit form has been submitted, save the edited details.
 	

@@ -75,3 +75,9 @@ Version 0.9.8.2 ( Nov 28, 2016 @lan )
 Version 0.9.8.3 ( Nov 29, 2016 @lan )
 --------------------------------------------------------------
 - User wall security settings
+
+Version 0.9.8.4 ( Jan 10, 2017 @lan )
+--------------------------------------------------------------
+- Fix non-bp-wall urls redirect to user home
+
+
