@@ -7,12 +7,12 @@
  * each activity.
  *
  * @package BuddyPress Wall
- * @subpackage bp-legacy
+ * @subpackage Templates
  */
 
 ?>
 
-<?php global $bp_wall; ?>
+<?php global $bp_wall, $bp; ?>
 
 <?php do_action( 'bp_before_activity_entry' ); ?>
 
@@ -33,6 +33,14 @@
 
 		</div>
 
+		<?php if ( 'activity_comment' == bp_get_activity_type() ) : ?>
+
+			<div class="activity-inreplyto">
+				<strong><?php _e( 'In reply to: ', 'buddypress' ); ?></strong><?php bp_activity_parent_content(); ?> <a href="<?php bp_activity_thread_permalink(); ?>" class="view" title="<?php _e( 'View Thread / Permalink', 'buddypress' ); ?>"><?php _e( 'View', 'buddypress' ); ?></a>
+			</div>
+
+		<?php endif; ?>
+
 		<?php if ( bp_activity_has_content() ) : ?>
 
 			<div class="activity-inner">
@@ -45,15 +53,9 @@
 
 		<?php do_action( 'bp_activity_entry_content' ); ?>
 
-		<div class="activity-meta">
+		<?php if ( is_user_logged_in() ) : ?>
 
-			<?php if ( bp_get_activity_type() == 'activity_comment' ) : ?>
-
-				<a href="<?php bp_activity_thread_permalink(); ?>" class="button view bp-secondary-action" title="<?php _e( 'View Conversation', 'buddypress' ); ?>"><?php _e( 'View Conversation', 'buddypress' ); ?></a>
-
-			<?php endif; ?>
-
-			<?php if ( is_user_logged_in() ) : ?>
+			<div class="activity-meta">
 
 				<?php if ( bp_activity_can_comment() ) : ?>
 
@@ -79,9 +81,9 @@
 
 				<?php do_action( 'bp_activity_entry_meta' ); ?>
 
-			<?php endif; ?>
+			</div>
 
-		</div>
+		<?php endif; ?>
 
 	</div>
 
@@ -110,7 +112,7 @@
 							<textarea placeholder="<?php _e( 'Write a comment', 'bp-wall' ); ?>" id="ac-input-<?php bp_activity_id(); ?>" class="ac-input" name="ac_input_<?php bp_activity_id(); ?>"></textarea>
 						</div>
 						<!--
-						<input type="submit" name="ac_form_submit" value="<?php _e( 'Post', 'buddypress' ); ?>" /> &nbsp; <a href="#" class="ac-reply-cancel"><?php _e( 'Cancel', 'buddypress' ); ?></a>
+						<input type="submit" name="ac_form_submit" value="<?php _e( 'Post', 'buddypress' ); ?>" /> &nbsp; <?php _e( 'or press esc to cancel.', 'buddypress' ); ?>
 						-->
 						<input type="hidden" name="comment_form_id" value="<?php bp_activity_id(); ?>" />
 					</div>

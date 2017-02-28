@@ -8,15 +8,6 @@
 
 /** This action is documented in bp-templates/bp-legacy/buddypress/members/single/settings/profile.php */
 ?>
-<div class="item-list-tabs no-ajax" id="subnav" aria-label="<?php esc_attr_e( 'Member secondary navigation', 'buddypress' ); ?>" role="navigation">
-	<ul>
-		<?php if ( bp_core_can_edit_settings() ) : ?>
-
-			<?php bp_get_options_nav(); ?>
-
-		<?php endif; ?>
-	</ul>
-</div>
 <h2 class="bp-screen-reader-text"><?php
 	/* translators: accessibility text */
 	_e( 'Wall security settings', 'buddypress' );

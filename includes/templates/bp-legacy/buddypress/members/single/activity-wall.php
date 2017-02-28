@@ -1,10 +1,10 @@
 <?php
 
 /**
- * BuddyPress - Users Activity
+ * BuddyPress - Users Activity Wall
  *
- * @package BuddyPress
- * @subpackage bp-legacy
+ * @package BuddyPress Wall
+ * @subpackage Templates
  */
 
 ?>
@@ -13,8 +13,11 @@
 	<ul>
 
 		<?php bp_get_options_nav(); ?>
-		<!--
+		
+		<!-- bp-wall-start -->
+		<!-- 
 		<li id="activity-filter-select" class="last">
+			
 			<label for="activity-filter-by"><?php _e( 'Show:', 'buddypress' ); ?></label>
 			<select id="activity-filter-by">
 				<option value="-1"><?php _e( 'Everything', 'buddypress' ); ?></option>
@@ -58,24 +61,27 @@
 
 		</li>
 		-->
+		<!-- bp-wall-end -->
 	</ul>
 </div><!-- .item-list-tabs -->
 
 <?php do_action( 'bp_before_member_activity_post_form' ); ?>
-
+<!-- bp-wall-start -->
 <?php if ( ( !bp_current_action() || bp_is_current_action( 'just-me' ) ) || 
-          is_user_logged_in() && bp_is_my_profile() && ( !bp_current_action() || bp_is_current_action( 'just-me' ) ) )
-          
-    bp_get_template_part( 'activity/post-wall-form' );
+          is_user_logged_in() && bp_is_my_profile() && ( !bp_current_action() || bp_is_current_action( 'just-me' ) ) ) : ?>
+<?php if ( bp_wall_user_can_post() )  : ?>
+	<?php bp_wall_load_sub_template( array('activity/post-wall-form.php'), true ) ?> 
+<?php endif; ?>
 
-do_action( 'bp_after_member_activity_post_form' );
-do_action( 'bp_before_member_activity_content' ); ?>
+<?php endif; ?>
+<!-- bp-wall-end -->
+<?php do_action( 'bp_after_member_activity_post_form' ); ?>
+<?php do_action( 'bp_before_member_activity_content' ); ?>
 
 <div class="activity" role="main">
-
-	<?php bp_get_template_part( 'activity/activity-wall-loop' ) ?>
-
+	<!-- bp-wall-start -->
+	<?php bp_wall_load_sub_template( array( 'activity/activity-wall-loop.php' ) ); ?>
+	<!-- bp-wall-end -->
 </div><!-- .activity -->
 
 <?php do_action( 'bp_after_member_activity_content' ); ?>
-

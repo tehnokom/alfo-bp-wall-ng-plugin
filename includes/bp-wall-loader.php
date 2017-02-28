@@ -471,6 +471,10 @@ class BP_Wall {
 	}
 }
 
+function bp_wall_register_template_location() {
+	    return BP_WALL_PLUGIN_DIR . '/templates/';
+}
+
 /**
  * Load the core of the plugin
  */
@@ -478,6 +482,9 @@ function bp_wall_load_core() {
 	global $bp, $bp_wall;
 	$bp_wall = new BP_Wall;
 	do_action('bp_wall_load_core');
+
+	if( function_exists( 'bp_register_template_stack' ) )
+        bp_register_template_stack( 'bp_wall_register_template_location' );
 
 }
 add_action( 'bp_init', 'bp_wall_load_core', 5 );

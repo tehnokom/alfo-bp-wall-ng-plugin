@@ -1,16 +1,15 @@
 <?php
 
 /**
- * BuddyPress - Activity Post Form
+ * BuddyPress - Activity Wall Post Form
  *
- * @package BuddyPress
- * @subpackage bp-legacy
+ * @package BuddyPress Wall
+ * @subpackage Templates
  */
 
 ?>
 
 <?php global $bp_wall, $bp;  ?>
-
 <?php if ( !is_user_logged_in() ) : ?>
 
 	<div id="message" class="bp-template-notice">
@@ -33,7 +32,6 @@
 
 	<?php if ( is_user_logged_in() ) : ?>
 
-
 <form action="<?php bp_activity_post_form_action(); ?>" method="post" id="whats-new-form" name="whats-new-form" role="complementary">
 
 	<?php do_action( 'bp_before_activity_post_form' ); ?>
@@ -49,15 +47,16 @@
 			<?php bp_loggedin_user_avatar( 'width=' . bp_core_avatar_thumb_width() . '&height=' . bp_core_avatar_thumb_height() ); ?>
 		</a>
 	</div>
-	
-	<p class="activity-greeting"><?php if ( bp_is_group() )
-		printf( __( "What's new in %s, %s?", 'buddypress' ), bp_get_group_name(), bp_get_user_firstname() );
-		elseif( ( bp_is_my_profile() && bp_is_user_activity() ) )		
+
+	<h5><?php if ( bp_is_group() )
+			printf( __( "What's new in %s, %s?", 'buddypress' ), bp_get_group_name(), bp_get_user_firstname() );
+		// depreacted bp_is_page
+		elseif( bp_is_my_profile() && bp_is_user_activity() )
 		//elseif( bp_is_page( BP_ACTIVITY_SLUG ) || bp_is_my_profile() && bp_is_user_activity() )
 			printf( __( "What's new, %s?", 'buddypress' ), bp_get_user_firstname() );
 		elseif( !bp_is_my_profile() && bp_is_user_activity() )
 			printf( __( "Write something to %s?", 'buddypress' ), bp_get_displayed_user_fullname() );
-	?></p>
+	?></h5>
 
 	<div id="whats-new-content">
 		<div id="whats-new-textarea">
@@ -71,6 +70,7 @@
 
 			<?php if ( bp_is_active( 'groups' ) && !bp_is_my_profile() && !bp_is_group() && !bp_is_user() ) : ?>
 			<?php //if ( bp_is_active( 'groups' ) && !bp_is_my_profile() && !bp_is_group() && !bp_is_member() ) : ?>
+
 
 				<div id="whats-new-post-in-box">
 

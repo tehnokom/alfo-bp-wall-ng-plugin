@@ -25,7 +25,7 @@ define( 'BP_WALL_IS_INSTALLED', 1 );
 
 // Define a constant that will hold the current version number of the component
 // This can be useful if you need to run update scripts or do compatibility checks in the future
-define( 'BP_WALL_VERSION', '0.9.8.5' );
+define( 'BP_WALL_VERSION', '0.9.8.6' );
 
 // Define a constant that we can use to construct file paths throughout the component
 define( 'BP_WALL_PLUGIN_DIR', dirname( __FILE__ ) );
@@ -176,42 +176,7 @@ register_deactivation_hook( __FILE__, 'bp_wall_deactivate' );
 function bp_wall_template_filter_init() {
 	add_action( 'bp_template_content', 'bp_wall_filter_template_content' );
 	add_filter( 'bp_get_template_part', 'bp_wall_template_part_filter', 10, 3 );
- 
+	add_filter( 'locate_template', 'bp_wall_replace_locate_template', 10, 3 ); 
 }
 add_action('bp_init', 'bp_wall_template_filter_init');
  
-function bp_wall_template_part_filter( $templates, $slug, $name ) {
-	if ( 'activity/index' == $slug  ) {
-		//return bp_buffer_template_part( 'activity/index-wall' );
-		$templates[0] = 'activity/index-wall.php';
-	}
-	elseif ( 'activity/wall-security' == $slug  ) {
-		$templates[0] = 'activity/wall-security.php';
-		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}
-	elseif ( 'members/single/home' == $slug  ) {
-		$templates[0] = 'members/single/home-wall.php';
-		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}
-	elseif ( 'groups/single/home' == $slug  ) {
-		$templates[0] = 'groups/single/home-wall.php';
-		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}
-	elseif ( groups_get_current_group()->slug.'_manage'.'group-security' == $slug  ) {
-		$templates[0] = 'groups/single/admin/group-security.php';
-		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}
-	elseif ( 'activity/timeline' == $slug  ) {
-		$templates[0] = 'activity/index-timeline.php';
-		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}
-
-
-	return $templates;
-	//return bp_get_template_part( 'members/single/plugins' );
-  
-}
- 
-function bp_wall_filter_template_content() {
-   // bp_buffer_template_part( 'activity/index-wall' );
-}

@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * BuddyPress - Users Activity Wall
+ *
+ * @package BuddyPress Wall
+ * @subpackage Templates
+ */
+
+?>
+
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
 		<li class="feed"><a href="<?php bp_group_activity_feed_link(); ?>" title="<?php _e( 'RSS Feed', 'buddypress' ); ?>"><?php _e( 'RSS', 'buddypress' ); ?></a></li>
@@ -24,20 +35,26 @@
 </div><!-- .item-list-tabs -->
 
 <?php do_action( 'bp_before_group_activity_post_form' ); ?>
+<!-- bp-wall-start -->
+<?php if ( is_user_logged_in() ) : ?>   
 
-<?php if ( is_user_logged_in() ) : ?>
+	<?php if ( bp_wall_groups_user_can_post() ) : ?>   
 
-	<?php bp_get_template_part( 'activity/post-wall-form' ); ?>
+		<?php bp_wall_load_sub_template( array('activity/post-wall-form.php'), true ) ?> 
+
+	<?php endif; ?>
 
 <?php endif; ?>
+<!-- bp-wall-end -->
 
 <?php do_action( 'bp_after_group_activity_post_form' ); ?>
 <?php do_action( 'bp_before_group_activity_content' ); ?>
 
 <div class="activity single-group" role="main">
-
-	<?php bp_get_template_part( 'activity/activity-wall-loop' ); ?>
-
+	<!-- bp-wall-start -->
+	<?php bp_wall_load_sub_template( array( 'activity/activity-wall-loop.php' ) ); ?>
+	<!-- bp-wall-end -->
 </div><!-- .activity.single-group -->
 
 <?php do_action( 'bp_after_group_activity_content' ); ?>
+

@@ -25,12 +25,36 @@ function bp_wall_activity_screen_wall_activity() {
  */
 function bp_wall_load_template_filter( $found_template, $templates ) {
 	global $bp, $bp_deactivated;
-	if ( !bp_wall_is_bp_default() || 
-           !( bp_is_current_component( 'activity' ) || (bp_is_current_component( 'groups' )) || (bp_is_current_component( 'settings' ))) &&
-           ( !bp_is_group_home() || !bp_is_active( 'activity' ) ) ) {
-        return $found_template; 
-    }
-	$templates_dir = "/templates/bp-default/";
+	echo "<pre>bp_wall_load_template_filter(".print_r(array( $found_template, $templates ),1).")</pre>";
+    if (bp_wall_is_bp_default())
+		echo " BPDEF ";
+    if (bp_is_current_component( 'activity' ))
+		echo " ACT ";
+	if (bp_is_current_component( 'groups' ))
+		echo " GRP "	;
+	if (bp_is_current_component( 'settings' )) 
+		echo "SETT";
+	if ( bp_is_group_home() )
+		echo " GRPHOME ";
+	if (bp_is_active( 'activity' ))  
+		echo " ACTACT ";
+	# !false 
+	# || 
+	# !( false || false || true )
+	# &&
+	# (! false || true )
+	if ( 
+		#!bp_wall_is_bp_default() 
+		#|| 
+		!( bp_is_current_component( 'activity' ) || (bp_is_current_component( 'groups' )) || (bp_is_current_component( 'settings' ))) 
+		&&
+		( !bp_is_group_home() || !bp_is_active( 'activity' ) ) 
+	   ) 
+	{
+		echo " RET1 ";
+		return $found_template; 
+	}
+	$templates_dir = "/templates/bp-legacy/buddypress/";
     
 	if ( $templates[0] == "members/single/home.php" ) {
         $template = 'members/single/home-wall.php';
@@ -38,7 +62,7 @@ function bp_wall_load_template_filter( $found_template, $templates ) {
             $found_template = STYLESHEETPATH . '/' . $template;
         else
             $found_template = dirname( __FILE__ ) . $templates_dir . $template;
-
+		echo "FOUND:".$found_template;
         return $found_template;
 
     }elseif ( $templates[0] == "activity/index.php" ) {
@@ -72,15 +96,84 @@ function bp_wall_load_template_filter( $found_template, $templates ) {
 		
 		if ( file_exists( STYLESHEETPATH . '/' . $template ) )
 			$filtered_templates[] = STYLESHEETPATH . '/' . $template;
-		else
+		elseif (file_exists( dirname( __FILE__ ) . $templates_dir . '/' . $template))
 			$filtered_templates[] = dirname( __FILE__ ) . $templates_dir . $template;
 	}
 
-	$found_template = $filtered_templates[0];
+	if (!empty($filtered_templates)) {
+		$found_template = $filtered_templates[0];
+		echo " SOMETHING: ". print_r($found_template,1);
+	}
 	
-	return apply_filters( 'bp_wall_load_template_filter', $found_template );
+		echo " RET2 ";
+	
+	#return apply_filters( 'bp_wall_load_template_filter', $found_template );
+	return $found_template;
 }
-add_filter( 'bp_located_template', 'bp_wall_load_template_filter', 10, 2 );
+#add_filter( 'bp_located_template', 'bp_wall_load_template_filter', 10, 2 );
+
+/**
+ * Load sub-template for non-BP pages
+ *
+ */
+
+function bp_wall_after_member_body_action () {
+	if ( bp_is_user_settings_security() ) {
+		bp_wall_load_sub_template( array( 'members/single/settings/security.php'  ), true );
+	}
+}
+add_action('bp_after_member_body','bp_wall_after_member_body_action');
+
+/*
+ * Filtering locate_template
+ *
+ */
+
+
+function bp_wall_replace_locate_template () {
+	
+}
+
+/**
+ * Replace BP pages
+ *
+ */
+
+function bp_wall_template_part_filter( $templates, $slug, $name ) {
+	if ( 'activity/index' == $slug  ) {
+		//return bp_buffer_template_part( 'activity/index-wall' );
+		$templates[0] = 'activity/index-wall.php';
+	}
+	elseif ( 'activity/wall-security' == $slug  ) {
+		$templates[0] = 'activity/wall-security.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}
+	/*elseif ( 'members/single/home' == $slug  ) {
+		$templates[0] = 'members/single/home-wall.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}
+	elseif ( 'groups/single/home' == $slug  ) {
+		$templates[0] = 'groups/single/home-wall.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}*/
+	elseif ( groups_get_current_group()->slug.'_manage'.'group-security' == $slug  ) {
+		$templates[0] = 'groups/single/admin/group-security.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}
+	elseif ( 'activity/timeline' == $slug  ) {
+		$templates[0] = 'activity/index-timeline.php';
+		//return bp_buffer_template_part( 'members/single/home-wall' );
+	}
+
+
+	return $templates;
+	//return bp_get_template_part( 'members/single/plugins' );
+  
+}
+ 
+function bp_wall_filter_template_content() {
+   // bp_buffer_template_part( 'activity/index-wall' );
+}
 
 /**
 * Load sub template
@@ -90,13 +183,17 @@ add_filter( 'bp_located_template', 'bp_wall_load_template_filter', 10, 2 );
 function bp_wall_load_sub_template( $template = false, $require_once = true ) {
 	if( empty( $template ) )
         return false;
-
     if( bp_wall_is_bp_default() ) {
     	if ( $located_template = apply_filters( 'bp_located_template', locate_template( $template , false ), $template ) )	
 			load_template( apply_filters( 'bp_load_template', $located_template ), $require_once );
     
     } else {
-        bp_get_template_part( $template );
+		#echo "not default";
+		if ( $located_template = apply_filters( 'bp_located_template', bp_locate_template( $template , false ), $template ) )	{
+			#echo  "located!";
+			load_template( apply_filters( 'bp_load_template', $located_template ), $require_once );
+		}
+        #echo "PATH for ".print_r($template,1).":". bp_get_template_part( $template );
 
     }
 }
@@ -111,9 +208,9 @@ function bp_wall_is_bp_default() {
     // be active, i added a BuddyPress version check.
     // I imagine that once version 1.7 will be released, this case will disappear.
 
-    if(current_theme_supports('buddypress') || in_array( 'bp-default', array( get_stylesheet(), get_template() ) )  || ( defined( 'BP_VERSION' ) && version_compare( BP_VERSION, '1.7', '<' ) ))
-   		return true;
-   else {
+    if(current_theme_supports('buddypress') || in_array( 'bp-default', array( get_stylesheet(), get_template() ) )  || ( defined( 'BP_VERSION' ) && version_compare( BP_VERSION, '1.7', '<' ) )) {
+		return true;
+	} else {
 	    // check to see if the 'buddypress' tag is in the theme 
 	    // some bp themes are not yet compatible to bp 1.7 but the plugin is updated
 
@@ -124,10 +221,11 @@ function bp_wall_is_bp_default() {
 
 	    // or if stylesheet is 'bp-default'
 	    $backpat = in_array( 'buddypress', $theme_tags );    
-	    if($backpat)
-	    	return true;
-   		else 
-   			return false;
+	    if($backpat) {
+			return true;
+		} else {
+			return false;
+		}
    }
 }
 
@@ -277,7 +375,6 @@ add_action( 'bp_screens', 'bp_wall_groups_screen_group_admin_post_security' );
 function bp_wall_screen_user_security() {
 	if ( ! ( bp_is_item_admin() && bp_is_user_settings() ) )
 		return false;
-	
 	
 	$bp = buddypress();
 	// If the edit form has been submitted, save the edited details.
