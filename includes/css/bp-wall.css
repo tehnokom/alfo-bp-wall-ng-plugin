@@ -36,7 +36,8 @@ div.activity-comments form div.ac-reply-content{
     margin-left: 0;
     padding-left: 0;
     margin-bottom: 5px;
-    height:30px;/* you may need to adjust height according to the one you choose for your textarea*/
+    /*height:30px;*/
+	/* you may need to adjust height according to the one you choose for your textarea*/
 }
 
 #buddypress div.activity-comments form textarea, 
@@ -45,7 +46,7 @@ div.activity-comments form textarea {
 }
 
 div.activity-comments form input[type='submit']{
-    display:none;
+    /*display:none;*/
 }
 
 /*on active/focus*/

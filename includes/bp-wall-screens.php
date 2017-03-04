@@ -140,9 +140,14 @@ function bp_wall_replace_locate_template () {
  */
 
 function bp_wall_template_part_filter( $templates, $slug, $name ) {
+	#echo $slug;
 	if ( 'activity/index' == $slug  ) {
 		//return bp_buffer_template_part( 'activity/index-wall' );
 		$templates[0] = 'activity/index-wall.php';
+	}
+	elseif ( 'activity/entry' == $slug  ) {
+		//return bp_buffer_template_part( 'activity/index-wall' );
+		$templates[0] = 'activity/entry-wall.php';
 	}
 	elseif ( 'activity/wall-security' == $slug  ) {
 		$templates[0] = 'activity/wall-security.php';
@@ -316,11 +321,19 @@ function bp_wall_groups_screen_group_admin_post_security() {
 	if ( isset( $_POST['save'] ) ) {
 		// Checked against a whitelist for security.
 		$allowed_post_security = apply_filters( 'groups_allowed_post_security', array( 'members', 'mods', 'admins' ) );
+		$allowed_comment_security = apply_filters( 'groups_allowed_comment_security', array( 'members', 'mods', 'admins' ) );
 		$prefix = "group-post-wall-security-";
+		$prefix_comment = "group-comment-wall-security-";
 		foreach ($allowed_post_security as $postsec) {
 			$id = $prefix.$postsec;
 			if (isset( $_POST[$id] ) && in_array( $_POST[$id], (array) $allowed_post_security )) {
 				$post_security[] =  $_POST[$id];
+			}
+		}
+		foreach ($allowed_comment_security as $commentsec) {
+			$id = $prefix_comment.$commentsec;
+			if (isset( $_POST[$id] ) && in_array( $_POST[$id], (array) $allowed_comment_security )) {
+				$comment_security[] =  $_POST[$id];
 			}
 		}
 		// Check the nonce.
@@ -331,6 +344,12 @@ function bp_wall_groups_screen_group_admin_post_security() {
 			bp_core_add_message( __( 'There was an error updating group security settings. Please try again.', 'buddypress' ), 'error' );
 		} else {
 			bp_core_add_message( __( 'Group security settings were successfully updated.', 'buddypress' ) );
+		}
+		
+		if ( !bp_wall_groups_edit_group_comment_security( $_POST['group-id'], $comment_security ) ) {
+			bp_core_add_message( __( 'There was an error updating group comment security settings. Please try again.', 'buddypress' ), 'error' );
+		} else {
+			bp_core_add_message( __( 'Group comment security settings were successfully updated.', 'buddypress' ) );
 		}
 
 		/**
@@ -382,12 +401,21 @@ function bp_wall_screen_user_security() {
 	if ( isset( $_POST['submit'] ) ) {
 		// Checked against a whitelist for security.
 		$allowed_wall_security = apply_filters( 'members_allowed_post_security', array( 'everyone', 'friends', 'fof' ) );
+		$allowed_wall_comment_security = apply_filters( 'members_allowed_comment_security', array( 'everyone', 'friends', 'fof' ) );
+		
 		
 		$prefix = "member-post-wall-security-";
+		$prefix_comment = "member-comment-wall-security-";
 		foreach ($allowed_wall_security as $postsec) {
 			$id = $prefix.$postsec;
 			if (isset( $_POST[$id] ) && in_array( $_POST[$id], (array) $allowed_wall_security )) {
 				$wall_security[] =  $_POST[$id];
+			}
+		}
+		foreach ($allowed_wall_comment_security as $commentsec) {
+			$id = $prefix_comment.$commentsec;
+			if (isset( $_POST[$id] ) && in_array( $_POST[$id], (array) $allowed_wall_comment_security )) {
+				$comment_security[] =  $_POST[$id];
 			}
 		}
 		// Check the nonce.
@@ -399,6 +427,12 @@ function bp_wall_screen_user_security() {
 			bp_core_add_message( __( 'There was an error updating wall security settings. Please try again.', 'buddypress' ), 'error' );
 		} else {
 			bp_core_add_message( __( 'Wall security settings were successfully updated.', 'buddypress' ) );
+		}
+		
+		if ( !bp_wall_member_edit_comment_security( bp_loggedin_user_id(), $comment_security ) ) {
+			bp_core_add_message( __( 'There was an error updating wall comments security settings. Please try again.', 'buddypress' ), 'error' );
+		} else {
+			bp_core_add_message( __( 'Wall comments security settings were successfully updated.', 'buddypress' ) );
 		}
 
 		/**

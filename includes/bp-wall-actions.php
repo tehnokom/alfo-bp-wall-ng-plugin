@@ -192,6 +192,7 @@ function bp_wall_dtheme_post_update() {
  */
 function bp_wall_ltheme_post_update() {
 	// Bail if not a POST action
+	echo "OOOLLLLRR";
 	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
 		return;
 
