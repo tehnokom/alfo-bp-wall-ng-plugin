@@ -150,6 +150,12 @@ function bp_wall_input_filter( &$activity ) {
 	
 	if ( isset($new_action) && !empty($new_action) ) {
 		bp_activity_update_meta( $activity->id, 'bp_wall_action', $new_action );
+		# 
+		# add other wall link
+		#
+		if ( !bp_is_my_profile() && bp_displayed_user_id() ) {
+			bp_activity_update_meta( $activity->id, 'bp_wall_user_id', bp_displayed_user_id() );
+		}
 	}
 }
 
@@ -178,6 +184,8 @@ function bp_wall_qs_filter( $query_string ) {
 	// load the activities for this page
 	if ( $action == "just-me" ) {
 		$activities = $bp_wall->get_wall_activities($page); 
+		
+		// XXX dummy search for showing "nothing found" if not found wall activities
 		if (empty($activities)) {
 			$new_query_string = "secondary_id=99999999";
 			return $new_query_string;
@@ -218,14 +226,19 @@ function bp_wall_get_the_notification_description( $description ){
 	return $description;
 }
 
-add_filter('bp_activity_item_id_before_save','bp_wall_activity_item_id_before_save');
-function bp_wall_activity_item_id_before_save($id) {
-	global $bp;
-	if ( !bp_is_my_profile() && bp_displayed_user_id() ) {
-		return bp_displayed_user_id();
-	}
-	return $id;
-}
+# 
+# Filter so item_id = user_id to which wall we are saving
+# XXX IT"S WRONG!!!! XXX
+#
+#add_filter('bp_activity_item_id_before_save','bp_wall_activity_item_id_before_save');
+#function bp_wall_activity_item_id_before_save($id) {
+#	global $bp;
+#	
+#	if ( !bp_is_my_profile() && bp_displayed_user_id() ) {
+#		return bp_displayed_user_id();
+#	}
+#	return $id;
+#}
 
 
 /**

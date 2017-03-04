@@ -86,6 +86,9 @@ For bug reports or to add patches or translation files to BP-Wall-NG, visit the 
 
 == BuddyPress-Wall-NG Changelog == 
 = 0.9.8.7 =
+* Rework wall postings
+
+= 0.9.8.7 =
 * Comment security
 
 = 0.9.8.6 =

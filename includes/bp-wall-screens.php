@@ -153,10 +153,10 @@ function bp_wall_template_part_filter( $templates, $slug, $name ) {
 		$templates[0] = 'activity/wall-security.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
 	}
-	/*elseif ( 'members/single/home' == $slug  ) {
-		$templates[0] = 'members/single/home-wall.php';
+	elseif ( 'members/single/activity' == $slug  ) {
+		$templates[0] = 'members/single/activity-wall.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}
+	} /*
 	elseif ( 'groups/single/home' == $slug  ) {
 		$templates[0] = 'groups/single/home-wall.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );

@@ -314,7 +314,7 @@ class BP_Wall {
 		$table_activity = $bp->activity->table_name; 
 		$table_activity_meta = $bp->activity->table_name_meta;
 
-		$select_sql = "SELECT DISTINCT $table_activity.id";
+		$select_sql = "SELECT DISTINCT $table_activity.id, user_id";
 		$from_sql = " FROM $table_activity LEFT JOIN $table_activity_meta ON $table_activity.id = $table_activity_meta.activity_id";
 
 		$where_conditions = array();
@@ -328,20 +328,33 @@ class BP_Wall {
 		 */
 		
 		$where_conditions['own_posting'] = "( $table_activity.component!='groups' AND $table_activity.user_id = $user_id AND $table_activity.type = 'activity_update' AND $table_activity.item_id = 0 )";
-		$where_conditions['wall_posting'] = "( $table_activity.component!='groups' AND $table_activity.type='activity_update' AND $table_activity.item_id = $user_id ) ";
+		$where_conditions['wall_posting'] = "( $table_activity.component!='groups' AND $table_activity.type='activity_update' AND ( $table_activity_meta.meta_key = 'bp_wall_user_id' AND $table_activity_meta.meta_value = $user_id ) ) ";
 
 		$where_sql = 'WHERE ' . join( ' OR ', $where_conditions );
 
 		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
+
+		#$having_sql = "HAVING $table_activity_meta.meta_key = 'wall_user_id' AND $table_activity_meta.meta_value = $user_id";
 		
 		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
+		#error_log("{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}");
 
 		if ( empty($activities ) ) return null;
 
 		$tmp = array();
 
 		foreach ( $activities as $a ) {
-			$tmp[] = $a["id"];
+			# check is it's not other user wall posting
+			if (
+				( ($a["user_id"] == $user_id) && empty(bp_activity_get_meta($a["id"],'bp_wall_user_id')) ) ||
+				( ($a["user_id"] != $user_id) && bp_activity_get_meta($a["id"],'bp_wall_user_id') == $user_id )
+			) {
+				/*if (empty(bp_activity_get_meta($a["id"],'bp_wall_user_id'))) 
+				{
+					error_log("EMPTY".$a["user_id"].":".$a["id"]);
+				}*/
+				$tmp[] = $a["id"];
+			} 
 		}
 		$activity_list = implode( ",", $tmp );
 		return $activity_list;
