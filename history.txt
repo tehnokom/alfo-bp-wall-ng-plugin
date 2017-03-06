@@ -95,3 +95,7 @@ Version 0.9.8.7 ( Mar 04, 2017 @lan )
 Version 0.9.8.8 ( Mar 04, 2017 @lan )
 --------------------------------------------------------------
 - Rework wall posting
+
+Version 0.9.8.9 ( Mar 06, 2017 @lan )
+--------------------------------------------------------------
+- Delete friends' posts to user's wall

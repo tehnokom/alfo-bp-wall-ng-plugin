@@ -85,7 +85,10 @@ For bug reports or to add patches or translation files to BP-Wall-NG, visit the 
 	
 
 == BuddyPress-Wall-NG Changelog == 
-= 0.9.8.7 =
+= 0.9.8.9 =
+* Delete friends' posts to user's wall
+
+= 0.9.8.8 =
 * Rework wall postings
 
 = 0.9.8.7 =

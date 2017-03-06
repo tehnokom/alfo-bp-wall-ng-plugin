@@ -20,6 +20,20 @@ add_filter('bp_ajax_querystring', 'bp_wall_qs_filter', 999);
 add_filter('bp_get_activity_action_pre_meta', 'bp_wall_get_activity_action_pre_meta',10,3);
 
 
+function bp_wall_activity_user_can_delete($can_delete,$activity) {
+    if ( is_user_logged_in() ) {
+		# if it's wall of logged_in_user AND if it's user's wall AND activity meta bp_wall_user_id = user's wall
+		if ( !empty( bp_activity_get_meta($activity->id,'bp_wall_user_id' ) ) ) {
+			# it's post to other wall
+			if  ( bp_activity_get_meta($activity->id,'bp_wall_user_id' ) == bp_loggedin_user_id()) {
+				return true;
+			}
+        }
+	}
+	return $can_delete;
+}
+add_filter('bp_activity_user_can_delete','bp_wall_activity_user_can_delete',10,3);
+
 
 function bp_wall_get_activity_action_pre_meta( $action, $activity, $args ){
 	$bp_wall_action = bp_activity_get_meta( $activity->id, 'bp_wall_action' );
