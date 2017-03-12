@@ -26,7 +26,7 @@
 	 */
 	do_action( 'bp_before_group_admin_content' ); ?>
 
-<h2 class="bp-screen-reader-text"><?php _e( 'Manage Group Security', 'buddypress' ); ?></h2>
+<h2 class="bp-screen-reader-text"><?php _e( 'Manage Group Security', 'bp-wall' ); ?></h2>
 
 <?php
 
@@ -40,9 +40,9 @@ do_action( 'bp_wall_before_group_settings_admin' ); ?>
 
 <fieldset class="group-post-security">
 
-	<h4><legend><?php _e( 'Group Post Security', 'buddypress' ); ?></legend></h4>
+	<h4><legend><?php _e( 'Group Post Security', 'bp-wall' ); ?></legend></h4>
 
-	<p><?php _e( 'Who can post to group wall?', 'buddypress' ); ?></p>
+	<p><?php _e( 'Who can post to group wall?', 'bp-wall' ); ?></p>
 
 	<div class="checkbox">
 
@@ -60,9 +60,9 @@ do_action( 'bp_wall_before_group_settings_admin' ); ?>
 
 <fieldset class="group-comment-security">
 
-	<h4><legend><?php _e( 'Group Comment Security', 'buddypress' ); ?></legend></h4>
+	<h4><legend><?php _e( 'Group Comment Security', 'bp-wall' ); ?></legend></h4>
 
-	<p><?php _e( 'Who can comment group wall?', 'buddypress' ); ?></p>
+	<p><?php _e( 'Who can comment group wall?', 'bp-wall' ); ?></p>
 
 	<div class="checkbox">
 

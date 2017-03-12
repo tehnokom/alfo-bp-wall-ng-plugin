@@ -99,3 +99,7 @@ Version 0.9.8.8 ( Mar 04, 2017 @lan )
 Version 0.9.8.9 ( Mar 06, 2017 @lan )
 --------------------------------------------------------------
 - Delete friends' posts to user's wall
+
+Version 0.9.8.9.1 ( Mar 12, 2017 @lan )
+--------------------------------------------------------------
+- Russian localization
