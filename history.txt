@@ -107,3 +107,7 @@ Version 0.9.8.9.1 ( Mar 12, 2017 @lan )
 Version 0.9.8.10 ( Mar 12, 2017 @lan )
 --------------------------------------------------------------
 - Admin can edit user's security settings
+
+Version 0.9.8.11 ( Mar 12, 2017 @lan )
+--------------------------------------------------------------
+- Fix groups commenting
