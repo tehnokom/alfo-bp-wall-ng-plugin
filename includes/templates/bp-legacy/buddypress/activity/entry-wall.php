@@ -114,7 +114,7 @@ do_action( 'bp_before_activity_entry' ); ?>
 
 			<?php bp_activity_comments(); ?>
 			<?php if ( is_user_logged_in() && bp_activity_can_comment() && 
-						( ( bp_is_current_component( 'activity' ) && bp_wall_user_can_comment() ) || ( bp_is_group() && bp_wall_groups_user_can_comment() ) ) ) : ?>
+						( ( bp_is_current_component( 'activity' ) && bp_wall_user_can_comment() ) || ( bp_is_group() && bp_wall_groups_user_can_comment() ) || is_site_admin() ) ) : ?>
 				<!-- -->
 				<form action="<?php bp_activity_comment_form_action(); ?>" method="post" id="ac-form-<?php bp_activity_id(); ?>" class="ac-form"<?php bp_activity_comment_form_nojs_display(); ?>>
 					<div class="ac-reply-avatar"><?php bp_loggedin_user_avatar( 'width=' . BP_AVATAR_THUMB_WIDTH . '&height=' . BP_AVATAR_THUMB_HEIGHT ); ?></div>
