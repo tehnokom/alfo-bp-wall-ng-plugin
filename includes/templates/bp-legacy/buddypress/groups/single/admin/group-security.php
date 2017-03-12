@@ -7,12 +7,13 @@
  */
 
 ?>
-<div class="item-list-tabs no-ajax" id="subnav" aria-label="<?php esc_attr_e( 'Group secondary navigation', 'buddypress' ); ?>" role="navigation">
+<?/*<div class="item-list-tabs no-ajax" id="subnav" aria-label="<?php esc_attr_e( 'Group secondary navigation', 'buddypress' ); ?>" role="navigation">
 	<ul>
 		<?php bp_group_admin_tabs(); ?>
 	</ul>
 </div><!-- .item-list-tabs -->
-
+ */
+?>
 <? do_action( 'bp_before_group_admin_security_form' ); ?>
 
 <form action="<?php bp_group_admin_form_action(); ?>" name="group-settings-security-form" id="group-settings-security-form" class="standard-form" method="post" enctype="multipart/form-data">

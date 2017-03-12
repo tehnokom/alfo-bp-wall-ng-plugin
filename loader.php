@@ -54,9 +54,9 @@ define( 'BP_WALL_PLUGIN_DIR_PATH',  plugin_dir_path( __FILE__ ) );
  */ 
 function bp_wall_load_textdomain() {
 	$mofile		= sprintf( 'buddypress-wall-%s.mo', get_locale() );
-	
 	$mofile_global	= trailingslashit( WP_LANG_DIR ) . $mofile;
 	$mofile_local	= BP_WALL_PLUGIN_DIR_PATH . 'languages/' . $mofile;
+
 
 	if ( is_readable( $mofile_global ) ) {
 		return load_textdomain( 'bp-wall', $mofile_global );
