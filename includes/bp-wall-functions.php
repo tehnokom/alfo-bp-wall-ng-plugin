@@ -419,7 +419,7 @@ function bp_is_user_settings_security() {
  *                             'fof' (friends of friends), or 'everyone').
  */
 function bp_wall_member_show_wall_security_setting( $setting ) {
-	$user_id = isset( $user->id ) ? $user->id : false;
+	$user_id = isset( $bp->displayed_user->id ) ? $bp->displayed_user->id : false;
 
 	$wall_security = bp_wall_member_get_wall_security( $user_id );
 
@@ -437,7 +437,7 @@ function bp_wall_member_show_wall_security_setting( $setting ) {
  *                             'fof' (friends of friends), or 'everyone').
  */
 function bp_wall_member_show_wall_comment_security_setting( $setting ) {
-	$user_id = isset( $user->id ) ? $user->id : false;
+	$user_id = isset( $bp->displayed_user->id ) ? $bp->displayed_user->id : false;
 
 	$wall_comment_security = bp_wall_member_get_wall_comment_security( $user_id );
 

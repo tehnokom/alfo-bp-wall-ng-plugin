@@ -103,3 +103,7 @@ Version 0.9.8.9 ( Mar 06, 2017 @lan )
 Version 0.9.8.9.1 ( Mar 12, 2017 @lan )
 --------------------------------------------------------------
 - Russian localization
+
+Version 0.9.8.10 ( Mar 12, 2017 @lan )
+--------------------------------------------------------------
+- Admin can edit user's security settings

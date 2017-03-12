@@ -85,6 +85,9 @@ For bug reports or to add patches or translation files to BP-Wall-NG, visit the 
 	
 
 == BuddyPress-Wall-NG Changelog == 
+= 0.9.8.10 =
+* Admin can edit user's security settings
+
 = 0.9.8.9.1 =
 * Russian localization
 

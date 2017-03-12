@@ -178,7 +178,8 @@ class BP_Wall {
 		
 		// ADD WALL SECURITY @lan
 		
-		$settings_link = trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() );
+		#$settings_link = trailingslashit( bp_loggedin_user_domain() . bp_get_settings_slug() );
+		$settings_link = trailingslashit( $domain . bp_get_settings_slug() );
 
 		bp_core_new_subnav_item( array(
 			'name' => __('Security','bp-wall'),

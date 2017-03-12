@@ -422,14 +422,15 @@ function bp_wall_screen_user_security() {
 		if ( !check_admin_referer( 'bp_wall_members_settings_security') )
 			return false;
 
+		$user = $bp->displayed_user->id;
 
-		if ( !bp_wall_member_edit_security( bp_loggedin_user_id(), $wall_security ) ) {
+		if ( !bp_wall_member_edit_security( $user, $wall_security ) ) {
 			bp_core_add_message( __( 'There was an error updating wall security settings. Please try again.', 'buddypress' ), 'error' );
 		} else {
 			bp_core_add_message( __( 'Wall security settings were successfully updated.', 'buddypress' ) );
 		}
 		
-		if ( !bp_wall_member_edit_comment_security( bp_loggedin_user_id(), $comment_security ) ) {
+		if ( !bp_wall_member_edit_comment_security( $user, $comment_security ) ) {
 			bp_core_add_message( __( 'There was an error updating wall comments security settings. Please try again.', 'buddypress' ), 'error' );
 		} else {
 			bp_core_add_message( __( 'Wall comments security settings were successfully updated.', 'buddypress' ) );
@@ -442,7 +443,7 @@ function bp_wall_screen_user_security() {
 		 *
 		 * @param int $id ID of the group that was edited.
 		 */
-		do_action( 'bp_wall_members_security_settings_edited', bp_loggedin_user_id());
+		do_action( 'bp_wall_members_security_settings_edited', $user);
 
 		bp_core_redirect( bp_member_permalink() . 'security/' );
 	}
@@ -454,7 +455,7 @@ function bp_wall_screen_user_security() {
 	 *
 	 * @param int $id ID of the user that is being displayed.
 	 */
-	do_action( 'bp_wall_screen_wall_security', bp_loggedin_user_id() );
+	do_action( 'bp_wall_screen_wall_security', $user );
 
 	/**
 	 * Filters the template to load for user wall page template
