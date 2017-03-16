@@ -48,9 +48,9 @@ do_action( 'bp_wall_before_group_settings_admin' ); ?>
 
 		<label for="group-post-wall-security-members"><input type="checkbox" name="group-post-wall-security-members" id="group-post-wall-security-members" value="members"<?php bp_wall_group_show_post_security_setting( 'members' ); ?> /> <?php _e( 'All group members', 'buddypress' ); ?></label>
 
-		<label for="group-post-wall-security-mods"><input type="checkbox" name="group-post-wall-security-mods" id="group-post-wall-security-mods" value="mods"<?php bp_wall_group_show_post_security_setting( 'mods' ); ?> /> <?php _e( 'Group admins and mods only', 'buddypress' ); ?></label>
+		<label for="group-post-wall-security-mods"><input type="checkbox" name="group-post-wall-security-mods" id="group-post-wall-security-mods" value="mods"<?php bp_wall_group_show_post_security_setting( 'mods' ); ?> /> <?php _e( 'Group mods', 'bp-wall' ); ?></label>
 
-		<label for="group-post-wall-security-admins"><input type="checkbox" name="group-post-wall-security-admins" id="group-post-wall-security-admins" value="admins"<?php bp_wall_group_show_post_security_setting( 'admins' ); ?> /> <?php _e( 'Group admins only', 'buddypress' ); ?></label>
+		<label for="group-post-wall-security-admins"><input type="checkbox" name="group-post-wall-security-admins" id="group-post-wall-security-admins" value="admins"<?php bp_wall_group_show_post_security_setting( 'admins' ); ?> /> <?php _e( 'Group admins', 'bp-wall' ); ?></label>
 	</div>
 
 </fieldset>
@@ -68,9 +68,9 @@ do_action( 'bp_wall_before_group_settings_admin' ); ?>
 
 		<label for="group-comment-wall-security-members"><input type="checkbox" name="group-comment-wall-security-members" id="group-comment-wall-security-members" value="members"<?php bp_wall_group_show_comment_security_setting( 'members' ); ?> /> <?php _e( 'All group members', 'buddypress' ); ?></label>
 
-		<label for="group-comment-wall-security-mods"><input type="checkbox" name="group-comment-wall-security-mods" id="group-comment-wall-security-mods" value="mods"<?php bp_wall_group_show_comment_security_setting( 'mods' ); ?> /> <?php _e( 'Group admins and mods only', 'buddypress' ); ?></label>
+		<label for="group-comment-wall-security-mods"><input type="checkbox" name="group-comment-wall-security-mods" id="group-comment-wall-security-mods" value="mods"<?php bp_wall_group_show_comment_security_setting( 'mods' ); ?> /> <?php _e( 'Group mods', 'bp-wall' ); ?></label>
 
-		<label for="group-comment-wall-security-admins"><input type="checkbox" name="group-comment-wall-security-admins" id="group-comment-wall-security-admins" value="admins"<?php bp_wall_group_show_comment_security_setting( 'admins' ); ?> /> <?php _e( 'Group admins only', 'buddypress' ); ?></label>
+		<label for="group-comment-wall-security-admins"><input type="checkbox" name="group-comment-wall-security-admins" id="group-comment-wall-security-admins" value="admins"<?php bp_wall_group_show_comment_security_setting( 'admins' ); ?> /> <?php _e( 'Group admins', 'bp-wall' ); ?></label>
 	</div>
 
 </fieldset>

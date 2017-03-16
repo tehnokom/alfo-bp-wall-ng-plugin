@@ -212,7 +212,7 @@ function bp_wall_groups_user_can_comment( $group_id = 0, $user_id = 0 ) {
 						break;
 
 					case 'mods' :
-						if ( groups_is_user_mod( $user_id, $group_id ) || groups_is_user_admin( $user_id, $group_id ) ) {
+						if ( groups_is_user_mod( $user_id, $group_id ) ) {
 							$can_comment = true;
 						}
 						break;
@@ -276,7 +276,7 @@ function bp_wall_groups_user_can_post( $group_id = 0, $user_id = 0 ) {
 						break;
 
 					case 'mods' :
-						if ( groups_is_user_mod( $user_id, $group_id ) || groups_is_user_admin( $user_id, $group_id ) ) {
+						if ( groups_is_user_mod( $user_id, $group_id )  ) {
 							$can_post = true;
 						}
 						break;

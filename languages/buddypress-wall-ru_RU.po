@@ -396,6 +396,12 @@ msgstr ""
 msgid "View Conversation"
 msgstr ""
 
+msgid "Group admins"
+msgstr "Администраторы группы"
+
+msgid "Group mods"
+msgstr "Модераторы группы"
+
 msgid "Cancel"
 msgstr ""
 
