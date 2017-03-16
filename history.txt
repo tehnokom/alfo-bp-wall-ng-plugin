@@ -119,3 +119,7 @@ Version 0.9.8.11.1 ( Mar 12, 2017 @lan )
 Version 0.9.8.11.2 ( Mar 16, 2017 @lan )
 --------------------------------------------------------------
 - Fix translation of security options
+
+Version 0.9.8.12 ( Mar 16, 2017 @lan )
+--------------------------------------------------------------
+- Filter new activity putting images ofactivity-plus to top
