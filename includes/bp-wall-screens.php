@@ -158,11 +158,11 @@ function bp_wall_template_part_filter( $templates, $slug, $name ) {
 	elseif ( 'members/single/activity' == $slug  ) {
 		$templates[0] = 'members/single/activity-wall.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
-	} /*
-	elseif ( 'groups/single/home' == $slug  ) {
-		$templates[0] = 'groups/single/home-wall.php';
+	} 
+	elseif ( 'groups/single/activity' == $slug  ) {
+		$templates[0] = 'groups/single/activity-wall.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
-	}*/
+	}
 	elseif ( groups_get_current_group()->slug.'_manage'.'group-security' == $slug  ) {
 		$templates[0] = 'groups/single/admin/group-security.php';
 		//return bp_buffer_template_part( 'members/single/home-wall' );
