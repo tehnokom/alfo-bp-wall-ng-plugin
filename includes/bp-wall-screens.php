@@ -140,13 +140,13 @@ function bp_wall_replace_locate_template () {
  */
 
 function bp_wall_template_part_filter( $templates, $slug, $name ) {
-	#echo $slug;
+	echo $slug;
 	#error_log($slug);
-	if ( 'activity/index' == $slug  ) {
+	/*if ( 'activity/index' == $slug  ) {
 		//return bp_buffer_template_part( 'activity/index-wall' );
 		$templates[0] = 'activity/index-wall.php';
 	}
-	elseif ( 'activity/entry' == $slug  ) {
+	else*/ if ( 'activity/entry' == $slug  ) {
 		//return bp_buffer_template_part( 'activity/index-wall' );
 		$templates[0] = 'activity/entry-wall.php';
 		#echo "OK!";
