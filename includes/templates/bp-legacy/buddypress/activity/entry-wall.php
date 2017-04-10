@@ -16,16 +16,19 @@
  */
 do_action( 'bp_before_activity_entry' ); ?>
 
+<div id="muro-sola">
+
 <li class="<?php bp_activity_css_class(); ?>" id="activity-<?php bp_activity_id(); ?>">
-	<div class="activity-avatar">
+
+		<div class="muro-post-top">
+		<div class="activity-avatar">
 		<a href="<?php bp_activity_user_link(); ?>">
 
 			<?php bp_activity_avatar(); ?>
 
 		</a>
-	</div>
-
-	<div class="activity-content">
+		</div>
+		
 
 		<div class="activity-header">
 
@@ -33,6 +36,10 @@ do_action( 'bp_before_activity_entry' ); ?>
 
 		</div>
 
+		</div>
+
+	<div class="activity-content">
+		
 		<?php if ( bp_activity_has_content() ) : ?>
 
 			<div class="activity-inner">
@@ -98,6 +105,8 @@ do_action( 'bp_before_activity_entry' ); ?>
 		</div>
 
 	</div>
+	
+
 
 	<?php
 
@@ -159,6 +168,8 @@ do_action( 'bp_before_activity_entry' ); ?>
 	do_action( 'bp_after_activity_entry_comments' ); ?>
 
 </li>
+
+</div>
 
 <?php
 

@@ -9,6 +9,25 @@
 
 ?>
 
+	<div id="muro-maldekstre">
+
+	<div id="muro-maldekstre-1">
+	<?php dynamic_sidebar( 'muro-maldekstre-1' ); ?>
+	</div>	
+	
+	<div id="muro-maldekstre-2">
+	<?php dynamic_sidebar( 'muro-maldekstre-2' ); ?>  
+	</div>
+	
+	<div id="muro-maldekstre-3">	
+	<?php dynamic_sidebar( 'muro-maldekstre-3' ); ?>
+	</div>
+	
+	</div>	
+	
+	<div id="muro-centro">
+	<div id="muro-centro-menuo">
+
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
 
@@ -75,8 +94,13 @@
 
 <?php endif; ?>
 <!-- bp-wall-end -->
+
 <?php do_action( 'bp_after_member_activity_post_form' ); ?>
 <?php do_action( 'bp_before_member_activity_content' ); ?>
+
+</div>
+
+<div id="muro-centro-post">
 
 <div class="activity" role="main">
 	<!-- bp-wall-start -->
@@ -85,3 +109,5 @@
 </div><!-- .activity -->
 
 <?php do_action( 'bp_after_member_activity_content' ); ?>
+
+</div></div>

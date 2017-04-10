@@ -34,6 +34,10 @@
 	</ul>
 </div><!-- .item-list-tabs -->
 
+<div id="muro-centro-grupo">
+
+<div id="muro-centro-grupo-menuo">
+
 <?php do_action( 'bp_before_group_activity_post_form' ); ?>
 <!-- bp-wall-start -->
 <?php if ( is_user_logged_in() ) : ?>   
@@ -49,7 +53,9 @@
 
 <?php do_action( 'bp_after_group_activity_post_form' ); ?>
 <?php do_action( 'bp_before_group_activity_content' ); ?>
+</div>
 
+<div id="muro-centro-grupo-post">
 <div class="activity single-group" role="main">
 	<!-- bp-wall-start -->
 	<?php bp_wall_load_sub_template( array( 'activity/activity-wall-loop.php' ) ); ?>
@@ -57,4 +63,21 @@
 </div><!-- .activity.single-group -->
 
 <?php do_action( 'bp_after_group_activity_content' ); ?>
+</div>
+</div>
 
+<div id="muro-dekstre">
+
+	<div id="muro-dekstre-1">
+	<?php dynamic_sidebar( 'muro-dekstre-1' ); ?>
+	</div>	
+	
+	<div id="muro-dekstre-2">
+	<?php dynamic_sidebar( 'muro-dekstre-2' ); ?>  
+	</div>
+	
+	<div id="muro-dekstre-3">	
+	<?php dynamic_sidebar( 'muro-dekstre-3' ); ?>
+	</div>
+
+</div>

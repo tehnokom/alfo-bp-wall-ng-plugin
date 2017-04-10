@@ -20,6 +20,26 @@ add_filter('bp_ajax_querystring', 'bp_wall_qs_filter', 999);
 add_filter('bp_get_activity_action_pre_meta', 'bp_wall_get_activity_action_pre_meta',10,3);
 
 
+remove_action( 'groups_join_group',           'groups_update_last_activity' );
+remove_action( 'groups_leave_group',          'groups_update_last_activity' );
+
+
+
+function bp_wall_filter_group_activities ($a, $b, $c) {
+	#error_log("OK!".$b->has_activities());
+	while ($ac = $b->next_activity()) {
+		if ($ac->{'type'} == 'joined_group') {
+			unset($b->activities[$b->current_activity]);
+		} else {
+		error_log(print_r($ac->{'type'},1));
+		}
+	}
+	$b->rewind_activities();
+	return 1;
+}
+#add_filter('bp_has_activities', 'bp_wall_filter_group_activities', 10,3);
+
+
 function bp_wall_activity_plus_media_to_top ($content = false)  {
 	if (($content) && (preg_match('/\[bpfb/',$content))) {
 		$pattern = '/^(.*)(\[bpfb_.*)$/sDm';
@@ -191,9 +211,11 @@ function bp_wall_input_filter( &$activity ) {
 function bp_wall_qs_filter( $query_string ) {
 	global $bp, $bp_wall;
 	$action = $bp->current_action;
-
+	$component = $bp->current_component;
+	#error_log($action);
+	#error_log($component);
 	// if we're on a different page than wall pass query_string as is
-	if ( $action != "just-me" &&  $action != "news-feed" && $action != "timeline") {
+	if ( $action != "just-me" &&  $action != "news-feed" && $action != "timeline" && !($action == "home" && $component == "groups") ) {
 		return $query_string;
 	}
 
@@ -221,6 +243,8 @@ function bp_wall_qs_filter( $query_string ) {
 		$activities = $bp_wall->get_newsfeed_activities($page); 
 	elseif ( $action == "timeline" )
 		$activities = $bp_wall->get_timeline_activities($page); 
+	elseif ($action == "home" && $component == "groups")
+		$activities = $bp_wall->get_group_activities($page); 
 
 	#echo "AC: ".print_r(array($activities,$query_string),1);
 	$new_query_string = "include=$activities";

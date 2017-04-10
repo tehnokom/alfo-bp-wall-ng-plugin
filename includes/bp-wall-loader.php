@@ -475,6 +475,50 @@ class BP_Wall {
 		return $activity_list;
 
 	}
+	
+	/**
+	 * Get the group activites 
+	 */
+	function get_group_activities( $page = 0, $per_page = 20 ){
+		global $bp, $wpdb;
+
+		$page = ( $page>0 ) ? ($page-1) * $per_page : 0;
+		//+1 to make sure having total more than 20 ( force printing Load more button)
+		$per_page = $per_page + 1;
+	
+		$user_id = $bp->displayed_user->id;
+		$filter = $bp->displayed_user->domain;
+
+		$group = groups_get_current_group();
+		$group_id = $group->{'id'};
+
+ 		$table_activity = $bp->activity->table_name; 
+		$table_activity_meta = $bp->activity->table_name_meta;
+
+		$select_sql = "SELECT DISTINCT $table_activity.id";
+		$from_sql = " FROM $table_activity LEFT JOIN $table_activity_meta ON $table_activity.id = $table_activity_meta.activity_id";
+
+		$where_conditions['groups_sql'] = "( $table_activity.item_id = $group_id  AND $table_activity.component = 'groups' AND $table_activity.type != 'joined_group')";
+		#$where_conditions['groups_sql'] = "( $table_activity.item_id = $group_id  AND $table_activity.component = 'groups' )";
+
+		$where_sql = 'WHERE ' . join( ' OR ', $where_conditions );
+
+		$pag_sql = $wpdb->prepare( "LIMIT %d, %d", absint( $page ), $per_page );
+		
+		$activities = $wpdb->get_results( apply_filters( 'bp_wall_activity_get_user_join_filter', "{$select_sql} {$from_sql} {$where_sql} ORDER BY date_recorded DESC {$pag_sql}", $select_sql, $from_sql, $where_sql, $pag_sql ) , ARRAY_A );
+		
+		if ( empty($activities ) ) return null;
+
+		$tmp = array();
+
+		foreach ( $activities as $a ) {
+			$tmp[] = $a["id"];
+		}
+		$activity_list = implode( ",", $tmp );
+		return $activity_list;
+
+	}
+	
 
 	/**
 	 * Retrive likes for current activity

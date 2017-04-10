@@ -143,3 +143,7 @@ Version 0.9.8.14 ( Mar 27, 2017 @lan )
 Version 0.9.8.14.1 ( Mar 27, 2017 @lan )
 --------------------------------------------------------------
 - Fix activity/index slug
+
+Version 0.9.8.15 ( Apr 10, 2017 @lan )
+--------------------------------------------------------------
+- joined_group not bump last_activity & filter joined_group from groups
