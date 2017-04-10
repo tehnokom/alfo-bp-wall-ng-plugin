@@ -43,7 +43,7 @@ function bp_wall_filter_group_activities ($a, $b, $c) {
 function bp_wall_activity_plus_media_to_top ($content = false)  {
 	if (($content) && (preg_match('/\[bpfb/',$content))) {
 		$pattern = '/^(.*)(\[bpfb_.*)$/sDm';
-		$replacement = '$2 $1';
+		$replacement = '$2 <br/> $1';
 		return preg_replace($pattern,$replacement,$content);
 	}
 	return $content;

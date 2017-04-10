@@ -124,17 +124,9 @@ Version 0.9.8.12 ( Mar 16, 2017 @lan )
 --------------------------------------------------------------
 - Filter new activity putting images ofactivity-plus to top
 
-Version 0.9.8.12 ( Mar 16, 2017 @lan )
---------------------------------------------------------------
-- Filter new activity putting images ofactivity-plus to top
-
 Version 0.9.8.13 ( Mar 19, 2017 @lan )
 --------------------------------------------------------------
 - Fix groups post secuirty
-
-Version 0.9.8.14 ( Mar 27, 2017 @lan )
---------------------------------------------------------------
-- Fix activity/index slug
 
 Version 0.9.8.14 ( Mar 27, 2017 @lan )
 --------------------------------------------------------------
@@ -147,3 +139,7 @@ Version 0.9.8.14.1 ( Mar 27, 2017 @lan )
 Version 0.9.8.15 ( Apr 10, 2017 @lan )
 --------------------------------------------------------------
 - joined_group not bump last_activity & filter joined_group from groups
+
+Version 0.9.8.15.1 ( Apr 10, 2017 @lan )
+--------------------------------------------------------------
+- put <br> between activity-plus content and text in bp_wall_activity_plus_media_to_top
