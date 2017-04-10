@@ -143,3 +143,7 @@ Version 0.9.8.15 ( Apr 10, 2017 @lan )
 Version 0.9.8.15.1 ( Apr 10, 2017 @lan )
 --------------------------------------------------------------
 - put <br> between activity-plus content and text in bp_wall_activity_plus_media_to_top
+
+Version 0.9.8.15.2 ( Apr 10, 2017 @lan )
+--------------------------------------------------------------
+- fallback group activities filter

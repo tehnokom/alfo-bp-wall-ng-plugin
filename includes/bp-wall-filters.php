@@ -212,10 +212,13 @@ function bp_wall_qs_filter( $query_string ) {
 	global $bp, $bp_wall;
 	$action = $bp->current_action;
 	$component = $bp->current_component;
-	#error_log($action);
-	#error_log($component);
+	if ( bp_is_activity_heartbeat_active()) {
+		error_log($bp->ajax_querystring);
+	}
+	#error_log($component.$action.": ".bp_ajax_querystring( 'activity' ));
 	// if we're on a different page than wall pass query_string as is
-	if ( $action != "just-me" &&  $action != "news-feed" && $action != "timeline" && !($action == "home" && $component == "groups") ) {
+	if ( $action != "just-me" &&  $action != "news-feed" && $action != "timeline" ) {
+	#if ( $action != "just-me" &&  $action != "news-feed" && $action != "timeline" && !($action == "home" && $component == "groups") ) {
 		return $query_string;
 	}
 
@@ -243,8 +246,8 @@ function bp_wall_qs_filter( $query_string ) {
 		$activities = $bp_wall->get_newsfeed_activities($page); 
 	elseif ( $action == "timeline" )
 		$activities = $bp_wall->get_timeline_activities($page); 
-	elseif ($action == "home" && $component == "groups")
-		$activities = $bp_wall->get_group_activities($page); 
+	#elseif ($action == "home" && $component == "groups")
+#		$activities = $bp_wall->get_group_activities($page); 
 
 	#echo "AC: ".print_r(array($activities,$query_string),1);
 	$new_query_string = "include=$activities";
