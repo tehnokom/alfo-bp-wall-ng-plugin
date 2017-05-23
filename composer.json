@@ -1,0 +1,7 @@
+{
+  "name": "tehnokom/alfo-bp-wall-ng-plugin",
+  "type": "wordpress-plugin",
+  "require": {
+    "composer/installers": "~1.0"
+  }
+}
